@@ -24,14 +24,13 @@ const Square = styled.div`
 const MainMap = ({
   snake
 }) => {
-  // const { head, bodyList } = snake;
-  const { head } = snake;
+  const { head, bodyList } = snake;
   const squares = Array(GRID_SIZE).fill(0).map((_, index) => index);
   return (
       <GridContainer>{
           squares.map((row) => squares.map((column)=>{
-            // const isSnake = [head, ...bodyList].find((item)=> item.x === column && item.y === row);
-            const isSnake = [head].find((item)=> item.x === column && item.y === row);
+            //destruct bodyList, then attach to head
+            const isSnake = [head, ...bodyList].find((item)=> item.x === column && item.y === row);
             return (
               <Square
               key={`${row}_${column}`}

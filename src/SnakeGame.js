@@ -70,9 +70,9 @@ const createFood = () => ({
 const SnakeGmae = () => {
     const [snake, setSnake] = useState(defaultSnake);
     const [food, setFood] = useState(() => createFood());
-    const [isGameStart, setIsGameStart] = useState(false);
+    const [isGameStart, setIsGameStart] = useState(true);
     const [isPause, setIsPause] = useState(false);
-    const [score, setScore] = useState(0);
+    const [score, setScore] = useState(0); 
 
     const handleKeydown = useCallback((event) => {
       const { code } = event;
@@ -118,25 +118,33 @@ const SnakeGmae = () => {
       };
     }, [handleKeydown]);
     
-    // move snake head every interval
+    // move snake head, body every interval
     useEffect(() => {
       const gameIntervalId = setInterval(() => {
-          setSnake((prevSnake) => {
+        if (!isGameStart || isPause) {
+          return;
+        }
+        setSnake((prevSnake) => {
           const updatedX = formatPosition(prevSnake.head.x + directionMap[prevSnake.direction].x);
           const updatedY = formatPosition(prevSnake.head.y + directionMap[prevSnake.direction].y);
+          const newBodyList = [
+            prevSnake.head,
+            ...prevSnake.bodyList.slice(0, prevSnake.maxLength - 2),
+          ];
           return ({
-              ...prevSnake,
-              head: {
+            ...prevSnake,
+            head: {
               x: updatedX,
               y: updatedY,
-              },
+            },
+            bodyList: newBodyList,
           });
-          });
+        });
       }, snake.speed);
       return () => {
-          clearInterval(gameIntervalId);
+        clearInterval(gameIntervalId);
       };
-    }, []);
+    }, [snake.speed, isGameStart, isPause]);
         
     return(
         <Background>
