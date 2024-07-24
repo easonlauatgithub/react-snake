@@ -81,6 +81,23 @@ const SnakeGmae = () => {
     const eatFood = snake.head.x === food.x && snake.head.y === food.y;
     const gameOver = snake.bodyList.find((item)=> item.x === snake.head.x && item.y === snake.head.y); 
 
+    //start, restart game
+    const handleOnGameStart = () => {
+      setScore(0);
+      setSnake(defaultSnake);
+      setIsGameStart(true);
+      if (gameOver) {
+        setFood(createFood());
+      }
+    };
+    
+    //pause game
+    const handleTogglePause = () => {
+      if (isGameStart) {
+        setIsPause((prev) => !prev);
+      }
+    };
+
     const handleKeydown = useCallback((event) => {
       const { code } = event;
       // if (code === SPACE) {
@@ -114,16 +131,6 @@ const SnakeGmae = () => {
           ...prevSnake,
           direction: ARROW_RIGHT,
         }));
-      }
-    };
-
-    //start, restart the game
-    const handleOnGameStart = () => {
-      setScore(0);
-      setSnake(defaultSnake);
-      setIsGameStart(true);
-      if (gameOver) {
-        setFood(createFood());
       }
     };
 
@@ -185,7 +192,7 @@ const SnakeGmae = () => {
         setIsGameStart(false);
       }
     }, [gameOver]);
-        
+    
     return(
         <Background>
             <Container>
@@ -197,7 +204,10 @@ const SnakeGmae = () => {
                   isGameStart={isGameStart}
                   handleOnGameStart={handleOnGameStart}
                 />
-                <Actions />
+                <Actions 
+                  isPause={isPause}
+                  handleTogglePause={handleTogglePause}
+                />
             </Container>
         </Background>
     );
