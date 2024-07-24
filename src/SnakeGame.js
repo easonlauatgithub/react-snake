@@ -42,12 +42,16 @@ const directionMap = {
 };
 
 const defaultSnake = {
-    head: { x: 2, y: 0 },
+    head: { x: 6, y: 0 },
     bodyList: [
+      { x: 5, y: 0 },
+      { x: 4, y: 0 },
+      { x: 3, y: 0 },
+      { x: 2, y: 0 },
       { x: 1, y: 0 },
       { x: 0, y: 0 },
     ],
-    maxLength: 3,
+    maxLength: 7,
     direction: ARROW_RIGHT,
     speed: SNAKE_INITIAL_SPEED,
 };
@@ -110,6 +114,16 @@ const SnakeGmae = () => {
           ...prevSnake,
           direction: ARROW_RIGHT,
         }));
+      }
+    };
+
+    //start, restart the game
+    const handleOnGameStart = () => {
+      setScore(0);
+      setSnake(defaultSnake);
+      setIsGameStart(true);
+      if (gameOver) {
+        setFood(createFood());
       }
     };
 
@@ -181,6 +195,7 @@ const SnakeGmae = () => {
                   food={food} 
                   gameOver={gameOver}
                   isGameStart={isGameStart}
+                  handleOnGameStart={handleOnGameStart}
                 />
                 <Actions />
             </Container>
