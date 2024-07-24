@@ -150,7 +150,7 @@ const SnakeGmae = () => {
         <Background>
             <Container>
                 <Information />
-                <MainMap snake={snake}/>
+                <MainMap snake={snake} food={food}/>
                 <Actions />
             </Container>
         </Background>
