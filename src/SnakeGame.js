@@ -152,7 +152,7 @@ const SnakeGmae = () => {
     useEffect(() => {
       if (eatFood) {
         setFood(createFood());
-        // setScore((prevScore) => prevScore + 1);
+        setScore((prevScore) => prevScore + 1);
         setSnake((prevSnake) => {
           const updatedSpeed = prevSnake.speed - SNAKE_DELTA_SPEED;
           return ({
@@ -167,7 +167,7 @@ const SnakeGmae = () => {
     return(
         <Background>
             <Container>
-                <Information/>
+                <Information score={score}/>
                 <MainMap snake={snake} food={food}/>
                 <Actions />
             </Container>
