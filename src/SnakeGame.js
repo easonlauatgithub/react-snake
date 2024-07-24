@@ -75,6 +75,7 @@ const SnakeGmae = () => {
     const [isPause, setIsPause] = useState(false);
     const [score, setScore] = useState(0); 
     const eatFood = snake.head.x === food.x && snake.head.y === food.y;
+    const gameOver = snake.bodyList.find((item)=> item.x === snake.head.x && item.y === snake.head.y); 
 
     const handleKeydown = useCallback((event) => {
       const { code } = event;
@@ -163,12 +164,24 @@ const SnakeGmae = () => {
         });
       }
     }, [eatFood]);
+
+    //when snake head hit body, gameOver is true, then, set isGameStart to false, to stop the game
+    useEffect(() => {
+      if (gameOver) {
+        setIsGameStart(false);
+      }
+    }, [gameOver]);
         
     return(
         <Background>
             <Container>
                 <Information score={score}/>
-                <MainMap snake={snake} food={food}/>
+                <MainMap 
+                  snake={snake} 
+                  food={food} 
+                  gameOver={gameOver}
+                  isGameStart={isGameStart}
+                />
                 <Actions />
             </Container>
         </Background>
