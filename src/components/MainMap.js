@@ -3,6 +3,7 @@ import {
     PAGE_PADDING, MAX_CONTENT_WIDTH, GRID_SIZE
 } from '../constants';
 
+//css
 const mapSize = css`
   width: min(calc(100vw - ${PAGE_PADDING * 2}px), ${MAX_CONTENT_WIDTH - (PAGE_PADDING * 2)}px);
   height: min(calc(100vw - ${PAGE_PADDING * 2}px), ${MAX_CONTENT_WIDTH - (PAGE_PADDING * 2)}px);
