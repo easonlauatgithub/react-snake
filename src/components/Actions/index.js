@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import PauseButton from './PauseButton';
+import VirtualKeyboard from './VirtualKeyboard';
 
 const ActionsContainer = styled.div`
   display: flex;
@@ -11,9 +12,11 @@ const ActionsContainer = styled.div`
   flex-direction: column;
 `;
 
-const Actions = ({ handleTogglePause }) => (
+const Actions = ({ handleTogglePause, handleChangeDirection }) => (
   <ActionsContainer>
-    <div className="virtual-keyboard">虛擬方向鍵</div>
+    <VirtualKeyboard
+    handleChangeDirection={handleChangeDirection}
+    />
     <PauseButton 
     onClick={handleTogglePause} 
     />

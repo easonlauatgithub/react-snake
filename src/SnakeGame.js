@@ -207,6 +207,7 @@ const SnakeGmae = () => {
                 <Actions 
                   isPause={isPause}
                   handleTogglePause={handleTogglePause}
+                  handleChangeDirection={handleChangeDirection}
                 />
             </Container>
         </Background>
