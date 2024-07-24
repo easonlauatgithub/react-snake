@@ -12,12 +12,13 @@ const ActionsContainer = styled.div`
   flex-direction: column;
 `;
 
-const Actions = ({ handleTogglePause, handleChangeDirection }) => (
+const Actions = ({ isPause, handleTogglePause, handleChangeDirection }) => (
   <ActionsContainer>
     <VirtualKeyboard
     handleChangeDirection={handleChangeDirection}
     />
     <PauseButton 
+    isPause = {isPause}
     onClick={handleTogglePause} 
     />
   </ActionsContainer>
