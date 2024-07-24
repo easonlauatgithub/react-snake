@@ -20,6 +20,7 @@ const styleForDemo = css`
 const Background = styled.div`
   display: flex;
   justify-content: center;
+  background: #000;
 /*
 ${styleForDemo}
    */
@@ -73,6 +74,7 @@ const SnakeGmae = () => {
     const [isGameStart, setIsGameStart] = useState(true);
     const [isPause, setIsPause] = useState(false);
     const [score, setScore] = useState(0); 
+    const eatFood = snake.head.x === food.x && snake.head.y === food.y;
 
     const handleKeydown = useCallback((event) => {
       const { code } = event;
@@ -145,11 +147,27 @@ const SnakeGmae = () => {
         clearInterval(gameIntervalId);
       };
     }, [snake.speed, isGameStart, isPause]);
+
+    // check if snake eat food
+    useEffect(() => {
+      if (eatFood) {
+        setFood(createFood());
+        // setScore((prevScore) => prevScore + 1);
+        setSnake((prevSnake) => {
+          const updatedSpeed = prevSnake.speed - SNAKE_DELTA_SPEED;
+          return ({
+            ...prevSnake,
+            maxLength: prevSnake.maxLength + 1,
+            speed: Math.max(updatedSpeed, SNAKE_LIMITED_SPEED),
+          });
+        });
+      }
+    }, [eatFood]);
         
     return(
         <Background>
             <Container>
-                <Information />
+                <Information/>
                 <MainMap snake={snake} food={food}/>
                 <Actions />
             </Container>
