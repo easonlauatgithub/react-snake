@@ -11,26 +11,27 @@ import {
 // css
 const styleForDemo = css`
     * {
-        border: 1px solid black;
-        padding: 4px;
-        margin: 4px;
+        border: 1px solid yellow;
+        padding: 0px;
+        margin: 0px;
     }
 `;
 
 const Background = styled.div`
   display: flex;
   justify-content: center;
-  background: #000;
-/*
+  background: #666666;
+/*   */
 ${styleForDemo}
-   */
+
 `;
 
 const Container = styled.div`
-  margin-top: 40px;
+  margin-top: 10px;
   & > *:not(:first-child) {
     margin-top: 20px;
   }
+  background: #666600  
 `;
 
 //data
@@ -73,15 +74,15 @@ const createFood = () => ({
 });
 
 const SnakeGmae = () => {
+    const [score, setScore] = useState(0); 
     const [snake, setSnake] = useState(defaultSnake);
     const [food, setFood] = useState(() => createFood());
-    const [score, setScore] = useState(0); 
-    const [isGameStart, setIsGameStart] = useState(true);
-    const [isPause, setIsPause] = useState(false);
-    const eatFood = snake.head.x === food.x && snake.head.y === food.y;
     const gameOver = snake.bodyList.find((item)=> {
       return item.x === snake.head.x && item.y === snake.head.y
     }); 
+    const [isGameStart, setIsGameStart] = useState(true);
+    const [isPause, setIsPause] = useState(false);
+    const eatFood = snake.head.x === food.x && snake.head.y === food.y;
 
     //start, restart game
     const handleOnGameStart = () => {
@@ -101,7 +102,7 @@ const SnakeGmae = () => {
       console.log("isPause"+isPause);
     };
 
-    // handle key pressed 2
+    // handle key pressed 2/2
     const handleKeydown = useCallback((event) => {
       const { code } = event;
       console.log("event code: "+code);
@@ -140,7 +141,7 @@ const SnakeGmae = () => {
       }
     };
 
-    // handle key pressed 1
+    // handle key pressed 1/2
     useEffect(() => {
       window.addEventListener('keydown', handleKeydown);
       return () => {
